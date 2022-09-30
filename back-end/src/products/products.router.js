@@ -1,9 +1,12 @@
 const router = require("express").Router();
 const methodNotAllowed = require("../errors/methodNotAllowed");
-// const productsController = require("./products.controller");
+const productsController = require("./products.controller");
 
-router.route("/").all(methodNotAllowed);
+router.route("/")
+  .get(productsController.list)
+  .all(methodNotAllowed);
 
-router.route("/:productId").all(methodNotAllowed);
+router.route("/:productId")
+  .all(methodNotAllowed);
 
 module.exports = router;
