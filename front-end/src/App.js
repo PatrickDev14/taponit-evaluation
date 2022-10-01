@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./layout/shared/Header";
 import ProductsList from "./layout/ProductsList";
+import FullProductView from "./layout/FullProductView";
 
 function App() {
   return (
@@ -10,11 +11,10 @@ function App() {
       <Switch>
         <Route exact path="/">
           <ProductsList />
-          {/* <Layout /> */}
         </Route>
-        {/* <Route path="/:productId">
+        <Route path="/:productId">
           <FullProductView />
-        </Route> */}
+        </Route>
       </Switch>
     </Router>
   );
