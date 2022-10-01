@@ -1,18 +1,22 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
-// import Layout from "./layout/Layout";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Header from "./layout/shared/Header";
+import ProductsList from "./layout/ProductsList";
 
-/**
- * Defines the root application component.
- * @returns {JSX.Element}
- */
 function App() {
   return (
-    <Switch>
-      <Route path="/">
-        {/* <Layout /> */}
-      </Route>
-    </Switch>
+    <Router>
+      <Header />
+      <Switch>
+        <Route exact path="/">
+          <ProductsList />
+          {/* <Layout /> */}
+        </Route>
+        {/* <Route path="/:productId">
+          <FullProductView />
+        </Route> */}
+      </Switch>
+    </Router>
   );
 }
 

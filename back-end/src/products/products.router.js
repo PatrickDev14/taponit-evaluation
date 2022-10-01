@@ -7,6 +7,7 @@ router.route("/")
   .all(methodNotAllowed);
 
 router.route("/:productId")
+  .get(productsController.read)
   .all(methodNotAllowed);
 
 module.exports = router;
