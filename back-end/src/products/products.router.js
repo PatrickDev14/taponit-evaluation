@@ -8,6 +8,7 @@ router.route("/")
 
 router.route("/:productId")
   .get(productsController.read)
+  .patch(productsController.updateLikes)
   .all(methodNotAllowed);
 
 module.exports = router;

@@ -12,7 +12,7 @@ function Header() {
 
   return (
     <div
-      className="jumbotron jumbotron-fluid text-white border-bottom border-dark pt-0"
+      className="jumbotron jumbotron-fluid text-white border-dark pt-4"
       style={style}
     >      
       <div className="container">

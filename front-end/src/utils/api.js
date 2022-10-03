@@ -76,3 +76,25 @@ export async function readProduct(product_id, signal) {
 
   return await fetchJson(url, { signal }, {})
 }
+
+/** PATCH an update to a product's 'likes' in the database
+ *
+ * @param data
+ * the data to update the product's status
+ * @param product_id
+ *  the id of the desired product
+ * @param signal
+ *  optional AbortController.signal
+ * @returns {Promise<product>}
+ *  a promise that resolves the saved product
+ */
+ export async function updateProductLikes(data, product_id, signal) {
+  const url = `${API_BASE_URL}/${product_id}`;
+  const options = {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify({ data }),
+    signal,
+  };
+  return await fetchJson(url, options);
+}

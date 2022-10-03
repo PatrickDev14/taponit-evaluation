@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { readProduct } from "../utils/api";
+import { Link, useParams } from "react-router-dom";
+import { readProduct, updateProductLikes } from "../utils/api";
 import ErrorAlert from "./shared/ErrorAlert";
 import "./shared/layout.css";
 
 function FullProductView() {
   const { productId } = useParams();
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState({});  
+  const [hasAlreadyLiked, setHasAlreadyLiked] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -22,13 +23,25 @@ function FullProductView() {
     return () => abortController.abort();
   }
 
-  // function updateScoreHandler(
-  //   { movie_id: movieId, review_id: reviewId },
-  //   score
-  // ) {
-  //   console.log("score", reviewId, score);
-  //   updateReview(reviewId, { score }).then(() => loadMovie(movieId));
-  // }
+  function likeClickHandler() {
+    console.log(productId);
+    const increasedData = { likes: product.likes + 1 };
+    console.log("likes total", productId, increasedData.likes);
+
+    setHasAlreadyLiked(true);
+    updateProductLikes(increasedData, productId)
+      .then(() => loadProduct(productId));
+  }
+
+  function dislikeClickHandler() {
+    console.log(productId)
+    const decreasedData = { likes: product.likes - 1 };
+    console.log("likes total", productId, decreasedData.likes);
+
+    setHasAlreadyLiked(false);
+    updateProductLikes(decreasedData, productId)
+      .then(() => loadProduct(productId));
+  }
 
   return (
     <div className="container">
@@ -44,12 +57,38 @@ function FullProductView() {
         <aside className="col-sm-12 col-md-6 col-lg-5">
           <h4 className="font-oxygen-heading mb-4">{product.title}</h4>
           <h5 className="font-oxygen text-left mb-4">Price: {product.price}</h5>
-          <h5 className="font-oxygen font-weight-bold text-left mb-3">Description</h5>
+          <h5 className="font-oxygen-heading text-left mb-3">Description</h5>
           <p className="font-oxygen text-left">{product.description}</p>
-          {/* <Likes
-            likes={product.likes}
-            setLikes={updateScoreHandler}
-          /> */}
+          <section className="mb-4">
+            <div className="mb-4 font-oxygen">
+              <strong>Likes:</strong> {product.likes}
+            </div>
+            <div>
+              <button
+                className="font-oxygen"
+                onClick={() => likeClickHandler()}
+                disabled={hasAlreadyLiked}
+              >
+                <i className="fas fa-thumbs-up fa-lg"></i> Like
+              </button>
+              <button
+                className="font-oxygen ml-4 mb-6"
+                onClick={() => dislikeClickHandler()}
+                disabled={!hasAlreadyLiked}
+              >
+                <i className="fas fa-thumbs-down fa-lg"></i> Dislike
+              </button>
+            </div>
+            <div>
+              <Link to="/">
+                <button
+                  className="font-oxygen mt-5"
+                >
+                  <i className="fas fa-arrow-left fa-lg"></i> All Tees
+                </button>
+              </Link>
+            </div>
+          </section>
         </aside>
       </section>
     </div>
