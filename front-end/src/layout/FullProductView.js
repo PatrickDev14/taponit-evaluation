@@ -24,9 +24,7 @@ function FullProductView() {
   }
 
   function likeClickHandler() {
-    console.log(productId);
     const increasedData = { likes: product.likes + 1 };
-    console.log("likes total", productId, increasedData.likes);
 
     setHasAlreadyLiked(true);
     updateProductLikes(increasedData, productId)
@@ -34,9 +32,7 @@ function FullProductView() {
   }
 
   function dislikeClickHandler() {
-    console.log(productId)
     const decreasedData = { likes: product.likes - 1 };
-    console.log("likes total", productId, decreasedData.likes);
 
     setHasAlreadyLiked(false);
     updateProductLikes(decreasedData, productId)
